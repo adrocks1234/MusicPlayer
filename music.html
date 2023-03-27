@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" 
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" 
+    crossorigin="anonymous"
+     referrerpolicy="no-referrer" 
+    />
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <div class="main_div">
+
+     <div class="music_container">
+
+     <h2 id="title">LOTUS LANE</h2>
+
+     <h3 id="artist">The loyalist</h3>
+
+     <div class="img_container">
+        
+        <img src="images/arijit-1.jpg" alt="" />
+
+    </div>
+
+        <audio src="music/arijit-1.mp3"></audio>
+
+        <!-- controls -->
+
+        <div class="music_controls">
+
+        <i class="fas fa-backward" id="prev" title="Previous"></i>
+        <i class="fas fa-play main_button" id="play" title="Play"></i>
+        <i class="fas fa-forward" id="next" title="Next"></i>
+
+        </div>
+
+     </div>
+
+   </div>
+
+   <script>
+
+      const music=document.querySelector("audio");
+      
+      const img=document.querySelector("img");
+
+      const play=document.getElementById("play");
+
+      const title=document.getElementById("title");
+
+      const artist=document.getElementById("artist");
+
+      const prev=document.getElementById("prev");
+
+      const next=document.getElementById("next");
+
+      const songs=[
+        {
+            name: "arijit-1",
+            title: "Lotus-lane",
+            artist: "loyalist"
+        },
+
+        {
+            name: "arijit-2",
+            title: "sappheiros",
+            artist: "Aurora"
+        },
+
+        {
+            name: "arijit-3",
+            title: "Walking Firiri",
+            artist: "Adele"
+        }
+      ];
+
+      let isPlaying=false;
+
+      //for play music
+
+      const playMusic=()=>{
+
+        isPlaying=true;
+
+        music.play();
+
+        play.classList.replace('fa-play','fa-pause');
+
+        img.classList.add("anime");
+
+      };
+
+      //for pause music
+
+      const pauseMusic=()=>{
+
+        isPlaying=false;
+
+         music.pause();
+
+         play.classList.replace('fa-pause','fa-play');
+
+         img.classList.remove("anime");
+
+      };
+
+      play.addEventListener('click',()=>{
+
+        if(isPlaying)
+        pauseMusic();
+
+        else
+        playMusic();
+
+      });
+
+      const loadSong=(songs)=>{
+
+      title.textContent=songs.title;
+      artist.textContent=songs.artist;
+      music.src="music/"+ songs.name + ".mp3";
+      img.src="images/" + songs.name + ".jpg";
+
+      };
+
+      songIndex=0;
+
+      const nextSong = () => {
+
+        songIndex=(songIndex+1)%songs.length;
+        loadSong(songs[songIndex]);
+        playMusic();
+
+      };
+
+      const prevSong = () => {
+
+        songIndex=(songIndex-1+songs.length)%songs.length;
+        loadSong(songs[songIndex]);
+        playMusic();
+
+      };
+
+      next.addEventListener("click",nextSong);
+
+      prev.addEventListener("click",prevSong);
+   
+   </script>
+    
+</body>
+</html>
